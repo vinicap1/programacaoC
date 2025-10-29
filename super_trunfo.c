@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "cidades_brasileiras.h"
+#include "paises.h"
 
 // Função para calcular Densidade Populacional
-float dens_pop(unsigned long pop, float area) {
+float dens_pop(int pop, float area) {
     return (float)pop / area;
 }
 
 // Função para calcular o PIB per capita
-float pib_pcapita(unsigned long pib, unsigned long pop) {
+float pib_pcapita(float pib, int pop) {
     //Conversao do PIB de milhoes para reais
     return (float)((pib*1000000) / pop);
 }
@@ -20,11 +20,11 @@ int main(){
 
     int opcao,i,j;
     char cod;
-    CartaCidade carta;
+    CartaPais carta;
 
     //Declaração do array com 5 cartas para cada jogador
-    CartaCidade carta_jogador1[10];
-    CartaCidade carta_jogador2[10];
+    CartaPais carta_jogador1[10];
+    CartaPais carta_jogador2[10];
 
     // Inserindo semente aleatória usando o tempo em rand
     srand(time(NULL)); 
@@ -32,13 +32,13 @@ int main(){
     //Sortear cartas para o jogador 1
     for(i = 0; i < 10; i++) {
         int num = rand() % 136;
-        carta_jogador1[i] = cartas_cidades[num];
+        carta_jogador1[i] = cartas_paises[num];
     }
 
     //Sortear cartas para o jogador 2
     for(i = 0; i < 10; i++) {
         int num = rand() % 136;
-        carta_jogador2[i] = cartas_cidades[num];
+        carta_jogador2[i] = cartas_paises[num];
     }
     
     //Limpeza de tela
@@ -53,11 +53,10 @@ int main(){
     printf("*** Carta Sorteada ***\n");
     i = rand() % 10;
     printf("Código: %s\n", carta_jogador1[i].codigo);
-    printf("Estado: %s\n", carta_jogador1[i].estado);
     printf("Nome: %s\n", carta_jogador1[i].nome);
-    printf("População: %lu\n", carta_jogador1[i].populacao);
+    printf("População: %d\n", carta_jogador1[i].populacao);
     printf("Área: %.2f km²\n", carta_jogador1[i].area_km2);
-    printf("PIB: %lu milhões\n", carta_jogador1[i].pib_milhoes);
+    printf("PIB: %.2f milhões\n", carta_jogador1[i].pib_milhoes);
     printf("Pontos Turísticos: %d\n", carta_jogador1[i].pontos_turisticos);
     printf("Densidade Populacional: %.0f hab/km²\n", dens0);
     printf("PIB per capita: R$%.2f\n", ppc0);
@@ -83,13 +82,13 @@ int main(){
     {
     case 1:
         printf("\nPOPULAÇÃO\n");
-        printf("Carta Jogador 1 - Cidade: %s | População: %lu\n",carta_jogador1[i].nome, carta_jogador1[i].populacao);
-        printf("Carta Jogador 2 - Cidade: %s | População: %lu\n",carta_jogador2[i].nome, carta_jogador2[i].populacao);
+        printf("Carta Jogador 1 - Cidade: %s | População: %d\n",carta_jogador1[i].nome, carta_jogador1[i].populacao);
+        printf("Carta Jogador 2 - Cidade: %s | População: %d\n",carta_jogador2[i].nome, carta_jogador2[i].populacao);
 
         if (carta_jogador1[i].populacao > carta_jogador2[i].populacao){
-            printf("\nResultado: Jogador1 venceu!!!\n%s - %lu habitantes", carta_jogador1[i].nome, carta_jogador1[i].populacao); 
+            printf("\nResultado: Jogador1 venceu!!!\n%s - %d habitantes", carta_jogador1[i].nome, carta_jogador1[i].populacao); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - %lu habitantes", carta_jogador2[i].nome, carta_jogador2[i].populacao);
+            printf("\nResultado: Jogador2 venceu!!!\n%s - %d habitantes", carta_jogador2[i].nome, carta_jogador2[i].populacao);
         }
         break;
 
@@ -107,8 +106,8 @@ int main(){
     
     case 3:
         printf("\nPIB\n");
-        printf("Carta Jogador 1 - Cidade: %s | Área: %lu\n",carta_jogador1[i].nome, carta_jogador1[i].pib_milhoes);
-        printf("Carta Jogador 2 - Cidade: %s | Área: %lu\n",carta_jogador2[i].nome, carta_jogador2[i].pib_milhoes);
+        printf("Carta Jogador 1 - Cidade: %s | Área: %.2f\n",carta_jogador1[i].nome, carta_jogador1[i].pib_milhoes);
+        printf("Carta Jogador 2 - Cidade: %s | Área: %.2f\n",carta_jogador2[i].nome, carta_jogador2[i].pib_milhoes);
 
         if (carta_jogador1[i].pib_milhoes > carta_jogador2[i].pib_milhoes){
             printf("\nResultado: Jogador1 venceu!!!\n%s - PIB %lu milhões de reais", carta_jogador1[i].nome, carta_jogador1[i].pib_milhoes); 
