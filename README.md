@@ -10,7 +10,7 @@ Um jogo de cartas implementado em C, onde os jogadores competem comparando atrib
 
 ### Como Funciona
 
-1. **Distribuição**: Cada jogador recebe automaticamente uma carta aleatória de um baralho com 124 cartas
+1. **Distribuição**: Cada jogador recebe automaticamente uma carta aleatória de um baralho com 100 cartas
 2. **Sorteio**: Uma carta aleatória do Jogador 1 é exibida na tela com todos os seus atributos
 3. **Escolha**: O Jogador 1 escolhe qual atributo deseja usar para comparação
 4. **Comparação**: O programa compara o atributo escolhido entre as cartas dos dois jogadores
@@ -128,7 +128,7 @@ super_trunfo.exe
 ### Arquivos Necessários
 
 - **`super_trunfo.c`**: Arquivo principal com a lógica do jogo
-- **`paises.h`**: Arquivo de cabeçalho contendo a estrutura `CartaPais` e o array `cartas_paises[]` com 124 cartas
+- **`paises.h`**: Arquivo de cabeçalho contendo a estrutura `CartaPais` e o array `cartas_paises[]` com 100 cartas
 
 ### Funções Principais
 

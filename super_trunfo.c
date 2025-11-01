@@ -4,19 +4,9 @@
 #include <time.h>
 #include "paises.h"
 
-// Função para calcular Densidade Populacional
-float dens_pop(int pop, float area) {
-    return (float)pop / area;
-}
-
-// Função para calcular o PIB per capita
-float pib_pcapita(float pib, int pop) {
-    //Conversao do PIB de milhoes para reais
-    return (float)((pib*1000000) / pop);
-}
 
 // Função principal
-int main(){
+int jogo(){
 
     int opcao,i,j;
     char cod;
@@ -31,27 +21,41 @@ int main(){
     
     //Sortear cartas para o jogador 1
     for(i = 0; i < 10; i++) {
-        int num = rand() % 136;
+        int num = rand() % 100;
         carta_jogador1[i] = cartas_paises[num];
     }
 
     //Sortear cartas para o jogador 2
     for(i = 0; i < 10; i++) {
-        int num = rand() % 136;
+        int num = rand() % 100;
         carta_jogador2[i] = cartas_paises[num];
     }
-    
+
+    // Carta sorteada dentro das 10 que cada um recebeu
+    i = rand() % 10;
+
     //Limpeza de tela
     system("clear||cls");
     printf("\n##### SUPERTRUNFO CIDADES #####\n");
 
+    // Função para calcular Densidade Populacional
+    float dens_pop(int pop, float area) {
+        return pop / area;
+    };
+
+    // Função para calcular o PIB per capita
+    float pib_pcapita(float pib, int pop) {
+        //Conversao do PIB de milhoes para reais
+        return ((float)((pib*1000000) / pop));
+    };
+    
     //Calculando densidade populacional e pib per capita
-    float dens0 = dens_pop(carta_jogador1[i].populacao, carta_jogador1[i].area_km2);
-    float ppc0 = pib_pcapita(carta_jogador1[i].pib_milhoes, carta_jogador1[i].populacao);
+    float dens0, ppc0; 
+    dens0 = dens_pop(carta_jogador1[i].populacao, carta_jogador1[i].area_km2);
+    ppc0 = pib_pcapita(carta_jogador1[i].pib_milhoes, carta_jogador1[i].populacao);
 
     //Exibição das cartas
     printf("*** Carta Sorteada ***\n");
-    i = rand() % 10;
     printf("Código: %s\n", carta_jogador1[i].codigo);
     printf("Nome: %s\n", carta_jogador1[i].nome);
     printf("População: %d\n", carta_jogador1[i].populacao);
@@ -88,7 +92,14 @@ int main(){
         if (carta_jogador1[i].populacao > carta_jogador2[i].populacao){
             printf("\nResultado: Jogador1 venceu!!!\n%s - %d habitantes", carta_jogador1[i].nome, carta_jogador1[i].populacao); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - %d habitantes", carta_jogador2[i].nome, carta_jogador2[i].populacao);
+            if(carta_jogador1[i].populacao == carta_jogador2[i].populacao){
+                printf("\n *** EMPATE *** ");
+                printf("\nJogador1 - %s - %d habitantes", carta_jogador1[i].nome, carta_jogador1[i].populacao);
+                printf("\nJogador2 - %s - %d habitantes", carta_jogador2[i].nome, carta_jogador2[i].populacao);
+            } else {
+                printf("\nResultado: Jogador2 venceu!!!\n%s - %d habitantes", carta_jogador2[i].nome, carta_jogador2[i].populacao);
+            }
+                
         }
         break;
 
@@ -100,7 +111,14 @@ int main(){
         if (carta_jogador1[i].area_km2 > carta_jogador2[i].area_km2){
             printf("\nResultado: Jogador1 venceu!!!\n%s - %.2f km²", carta_jogador1[i].nome, carta_jogador1[i].area_km2); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - %.2f km²", carta_jogador2[i].nome, carta_jogador2[i].area_km2);
+            if(carta_jogador1[i].area_km2 == carta_jogador2[i].area_km2) {
+                printf("\n *** EMPATE *** ");
+                printf("\nJogador1 - %s - %.2f km²", carta_jogador1[i].nome, carta_jogador1[i].area_km2);
+                printf("\nJogador2 - %s - %.2f km²", carta_jogador2[i].nome, carta_jogador2[i].area_km2);
+            } else{
+                printf("\nResultado: Jogador2 venceu!!!\n%s - %.2f km²", carta_jogador2[i].nome, carta_jogador2[i].area_km2);
+            }
+            
         }
         break;
     
@@ -110,9 +128,16 @@ int main(){
         printf("Carta Jogador 2 - Cidade: %s | Área: %.2f\n",carta_jogador2[i].nome, carta_jogador2[i].pib_milhoes);
 
         if (carta_jogador1[i].pib_milhoes > carta_jogador2[i].pib_milhoes){
-            printf("\nResultado: Jogador1 venceu!!!\n%s - PIB %lu milhões de reais", carta_jogador1[i].nome, carta_jogador1[i].pib_milhoes); 
+            printf("\nResultado: Jogador1 venceu!!!\n%s - PIB %.2f milhões de reais", carta_jogador1[i].nome, carta_jogador1[i].pib_milhoes); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - PIB %lu milhões de reais", carta_jogador2[i].nome, carta_jogador2[i].pib_milhoes);
+            if (carta_jogador1[i].pib_milhoes == carta_jogador2[i].pib_milhoes){
+                printf("\n *** EMPATE *** ");
+                printf("\nJogador1 - %s - PIB %.2f milhões de reais", carta_jogador1[i].nome, carta_jogador1[i].pib_milhoes);
+                printf("\nJogador2 - %s - PIB %.2f milhões de reais", carta_jogador2[i].nome, carta_jogador2[i].pib_milhoes);
+            } else {
+                printf("\nResultado: Jogador2 venceu!!!\n%s - PIB %.2f milhões de reais", carta_jogador2[i].nome, carta_jogador2[i].pib_milhoes);
+            }
+            
         }
         break;
     
@@ -124,7 +149,14 @@ int main(){
         if (carta_jogador1[i].pontos_turisticos > carta_jogador2[i].pontos_turisticos){
             printf("\nResultado: Jogador1 venceu!!!\n%s - %d Pontos Turísticos", carta_jogador1[i].nome, carta_jogador1[i].pontos_turisticos); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - %d Pontos Turísticos", carta_jogador2[i].nome, carta_jogador2[i].pontos_turisticos);
+            if (carta_jogador1[i].pontos_turisticos == carta_jogador2[i].pontos_turisticos){
+                printf("\n *** EMPATE *** ");
+                printf("\nJogador1 - %s - %d Pontos Turísticos", carta_jogador1[i].nome, carta_jogador1[i].pontos_turisticos);
+                printf("\nJogador2 - %s - %d Pontos Turísticos", carta_jogador2[i].nome, carta_jogador2[i].pontos_turisticos);
+            } else {
+                printf("\nResultado: Jogador2 venceu!!!\n%s - %d Pontos Turísticos", carta_jogador2[i].nome, carta_jogador2[i].pontos_turisticos);
+            }
+            
         }
         break;
 
@@ -140,7 +172,14 @@ int main(){
         if (dens1 < dens2){
             printf("\nResultado: Jogador1 venceu!!!\n%s - %.2f hab/km²", carta_jogador1[i].nome, dens1); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - %.2f hab/km²", carta_jogador2[i].nome, dens2);
+            if (dens1 == dens2){
+                printf("\n *** EMPATE *** ");
+                printf("\nJogador1 - %s - %.2f hab/km²", carta_jogador1[i].nome, dens1);
+                printf("\nJogador2 - %s - %.2f hab/km²", carta_jogador2[i].nome, dens2);
+            } else {
+                printf("\nResultado: Jogador2 venceu!!!\n%s - %.2f hab/km²", carta_jogador2[i].nome, dens2);
+            }
+            
         }
         break;
 
@@ -156,7 +195,14 @@ int main(){
         if (ppc1 > ppc2){
             printf("\nResultado: Jogador1 venceu!!!\n%s - PIB per capita: R$%.2f", carta_jogador1[i].nome, ppc1); 
         } else {
-            printf("\nResultado: Jogador2 venceu!!!\n%s - PIB per capita: R$%.2f", carta_jogador2[i].nome, ppc2);
+            if(ppc1 == ppc2){
+                printf("\n *** EMPATE *** ");
+                printf("\nJogador1 - %s - PIB per capita: R$%.2f", carta_jogador1[i].nome, ppc1);
+                printf("\nJogador2 - %s - PIB per capita: R$%.2f", carta_jogador2[i].nome, ppc2);
+            } else {
+                printf("\nResultado: Jogador2 venceu!!!\n%s - PIB per capita: R$%.2f", carta_jogador2[i].nome, ppc2);
+            }
+            
         }
         break;
     
@@ -164,9 +210,27 @@ int main(){
         break;
     }
 
-    getchar();
-    printf("\n\nDigite ENTER para encerrar...");
-    getchar();
-
     return 0;
 }
+
+int main (){
+    int resp = 1;
+    do
+    {
+        jogo();
+        getchar();
+        printf("\n\nDigite ENTER...");
+        getchar();
+        system("clear||cls");
+        printf("##### SUPERTRUNFO CIDADES #####\n");
+        printf("\n\nDeseja jogar novamente? ");
+        printf("\n1- Sim\n2- Não\n\n");
+        scanf("%d", &resp);
+        getchar();
+
+    } while (resp == 1);
+    
+    return 0;
+}
+
+        
